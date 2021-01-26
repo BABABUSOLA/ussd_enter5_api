@@ -17,6 +17,7 @@ def ussd_callback():
     phone_number = request.values.get("phoneNumber", None)
     text = request.values.get("text", "default")
     contact_list = requests.get("https://us-central1-add-backend-fst4enter5.cloudfunctions.net/contact/").json()
+    my_contact_list = str(contact_list)
 
 
     if text == '':
@@ -25,7 +26,7 @@ def ussd_callback():
         response += "2. Add Contact" 
     
     elif text == '1':
-        response = "END  \n" + contact_list
+        response = "END  \n" + my_contact_list
 
     elif text == '2':
         response  = "CON Please type the phone number \n"
