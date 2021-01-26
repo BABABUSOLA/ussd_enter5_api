@@ -1,6 +1,7 @@
 # Your code goes here
 from flask import Flask, request
 import requests
+import json
 
 
 app = Flask(__name__)
@@ -26,16 +27,12 @@ def ussd_callback():
     elif text == '1':
         response = "END  \n" + contact_list
 
-    elif text == '1*1':
-        accountNumber  = "ACCC1001"
-        response = "END your account is " + accountNumber
-    
-    elif text == '1*2':
-        balance = "KES 10,000"
-        response = "END Your balance is " + balance
-
     elif text == '2':
-        response = "END This is your phone number " + phone_number 
+        response  = "CON Please type the phone number \n"
+        response += "END This is the added phone number. \n" + text
+
+    # elif text == '2':
+    #     response = "END This is your phone number " + phone_number 
 
     return response
 
