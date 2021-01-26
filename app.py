@@ -12,8 +12,7 @@ def ussd_callback():
     service_code = request.values.get("serviceCode", None)
     phone_number = request.values.get("phoneNumber", None)
     text = request.values.get("text", "default")
-
-    get_contact = "https://us-central1-add-backend-fst4enter5.cloudfunctions.net/contact/"
+    contact_list = request.get("https://us-central1-add-backend-fst4enter5.cloudfunctions.net/contact/")
 
 
     if text == '':
@@ -22,10 +21,9 @@ def ussd_callback():
         response += "2. Add Contact" 
     
     elif text == '1':
-
-        response = "CON Choose account information you want to view \n"
-        response += "1. Account number \n"
-        response += "2. Account balance"
+        for contacts in contact_list:
+            return contacts
+        response = "END  \n" + contacts
 
     elif text == '1*1':
         accountNumber  = "ACCC1001"
