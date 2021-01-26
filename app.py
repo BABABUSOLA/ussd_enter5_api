@@ -24,9 +24,7 @@ def ussd_callback():
         response += "2. Add Contact" 
     
     elif text == '1':
-        for contacts in contact_list:
-            return contacts
-        response = "END  \n" + contacts
+        response = "END  \n" + contact_list
 
     elif text == '1*1':
         accountNumber  = "ACCC1001"
