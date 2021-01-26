@@ -15,7 +15,7 @@ def ussd_callback():
     service_code = request.values.get("serviceCode", None)
     phone_number = request.values.get("phoneNumber", None)
     text = request.values.get("text", "default")
-    contact_list = requests.get("https://us-central1-add-backend-fst4enter5.cloudfunctions.net/contact/")
+    contact_list = requests.get("https://us-central1-add-backend-fst4enter5.cloudfunctions.net/contact/").json()
 
 
     if text == '':
