@@ -34,7 +34,7 @@ def ussd_callback():
         # response += "0. Back"
         # response += "END This is the added phone number. \n" + text
     
-    elif '*2*' in text:
+    elif '2*' in text:
         response = "CON Kindly \n"
         response = "1. Type your name to save this number" + text 
 
