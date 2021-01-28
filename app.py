@@ -29,15 +29,16 @@ def ussd_callback():
         response = "END  \n" + my_contact_list
 
     elif text == '2':
-        response  = "CON Kindly \n"
+        response  = "CON Kindly type your number\n"
         response += "1. Type your number \n"
         # response += "0. Back"
         # response += "END This is the added phone number. \n" + text
     
-    elif '2*' in text:
-        response = "CON Kindly \n"
-        response = "1. Type your name to save this number" + text 
+    elif text == '2*1':
+        response = "CON Kindly type your number \n"
 
+    elif '2*1*' in text:
+        response = "CON Kindly type your name \n"
     # elif text == '2':
     #     response = "END This is your phone number " + phone_number 
     else:
