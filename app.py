@@ -37,8 +37,14 @@ def ussd_callback():
     elif text == '2*1':
         response = "CON Kindly type your number \n"
 
-    elif '2*1*' in text:
+    elif f'2*1*{text[4:]}' in text:
         response = "CON Kindly type your name \n"
+
+    elif f'2*1*{text[4:]}*' in text:
+        response = "CON Please confirm your details \n"
+        response += "1. Yes"
+        response += "2. No"
+
     # elif text == '2':
     #     response = "END This is your phone number " + phone_number 
     else:
