@@ -4,6 +4,8 @@ from flask import Flask, request
 import requests
 import json
 
+from firebase import firebase
+
 firebase = firebase.FirebaseApplication("https://add-backend-fst4enter5-default-rtdb.firebaseio.com/", None)
 
 # data = {
