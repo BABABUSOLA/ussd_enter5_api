@@ -7,7 +7,6 @@ import json
 app = Flask(__name__)
 
 response = ""
-data = []
 
 @app.route('/', methods=['POST','GET'])
 def ussd_callback():
@@ -21,7 +20,7 @@ def ussd_callback():
     my_contact_list = str(contact_list)
 
 
-    if text == ('' || '2*0'):
+    if text == '' :
         response  = "CON What would you want to check \n"
         response += "1. My Phone Book \n"
         response += "2. Add Contact" 
@@ -32,7 +31,7 @@ def ussd_callback():
     elif text == '2':
         response  = "CON Kindly \n"
         response += "1. Type your number \n"
-        response += "0. Back"
+        # response += "0. Back"
         # response += "END This is the added phone number. \n" + text
     
     elif '*2*1*' in text:
