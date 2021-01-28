@@ -1,5 +1,4 @@
 # Your code goes here
-from firebase import firebase
 from flask import Flask, request
 import requests
 import json
