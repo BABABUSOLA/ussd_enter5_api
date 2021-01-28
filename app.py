@@ -34,20 +34,15 @@ def ussd_callback():
         # response += "END This is the added phone number. \n" + text
 
     elif f'2*{text[2:]}' in text:
-        response = "CON Continue? \n" + text
-        response += "1. Yes"
-        
-    elif f'2*{text[2:]}*1' in text:
-        response = "CON Kindly type your name \n" + text
+        response = "CON Kindly type your name \n"
 
-
-    elif f'2*{text[2:]}*1*' in text:
+    elif f'2*{text[2:]}*' in text:
         response = "CON Please confirm your details \n"
         response += "1. Yes"
         response += "2. No"
         
-    elif f'2*{text[2:]}*1*' in text:
-        response = "END Let us save to database \n"
+    elif f'2*{text[1:]}*1*' in text:
+        response = "END Let us  \n"
         
     # elif text == '2':
     #     response = "END This is your phone number " + phone_number 
