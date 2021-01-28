@@ -33,12 +33,11 @@ def ussd_callback():
         response  = "CON Kindly \n"
         response += "1. Type your number \n"
         response += "0. Back"
-        data.append(text[5:])
         # response += "END This is the added phone number. \n" + text
     
     elif '*2*1*' in text:
         response = "CON Kindly \n"
-        response = "1. Type your name to save this number" + text + "The data is:"data
+        response = "1. Type your name to save this number" + text 
 
     # elif text == '2':
     #     response = "END This is your phone number " + phone_number 
