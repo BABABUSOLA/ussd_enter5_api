@@ -21,7 +21,7 @@ def ussd_callback():
     my_contact_list = str(contact_list)
 
 
-    if text == ('' or '2*0'):
+    if text == ('' || '2*0'):
         response  = "CON What would you want to check \n"
         response += "1. My Phone Book \n"
         response += "2. Add Contact" 
