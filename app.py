@@ -3,19 +3,6 @@ from flask import Flask, request
 import requests
 import json
 
-from firebase import firebase
-
-firebase = firebase.FirebaseApplication("https://add-backend-fst4enter5-default-rtdb.firebaseio.com/", None)
-
-# data = {
-#     'FullName' : 'Busola ussd',
-#     'PhoneNumber' : '0903843',
-#     'email': 'email.com'
-}
-
-# save_result = firebase.post('/add-backend-fst4enter5-default-rtdb/Contacts', data)
-show_result = firebase.get('/add-backend-fst4enter5-default-rtdb/Contacts', '')
-all_contacts = str(show_result)
 
 
 app = Flask(__name__)
@@ -40,7 +27,7 @@ def ussd_callback():
         response += "2. Add Contact" 
     
     elif text == '1':
-        response = "END  \n" + all_contacts
+        response = "END  \n" + my_contact_list
 
     elif text == '2':
         response  = "CON Kindly type your number\n"
