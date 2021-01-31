@@ -37,7 +37,7 @@ def ussd_callback():
             phoneNumber = x["phoneNumber"]
             print(name,email,phoneNumber)
 
-            response = "END  \n" + name + phoneNumber + email
+        response = f'END Name : {name} \n Mobile: {phoneNumber} \n Email: {email}'
 
     elif text == '2':
         response  = "CON Kindly type your number\n"
