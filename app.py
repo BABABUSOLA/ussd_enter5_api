@@ -3,7 +3,7 @@ from flask import Flask, request
 import requests
 import json
 
-import firebase
+from firebase import firebase
 
 
 app = Flask(__name__)
@@ -20,16 +20,18 @@ def ussd_callback():
     text = request.values.get("text", "default")
     contact_list = requests.get("https://us-central1-add-backend-fst4enter5.cloudfunctions.net/contact/").json()
     my_contact_list = str(contact_list)
-     
-    firedb = firebase.make_get_request("https://add-backend-fst4enter5-default-rtdb.firebaseio.com/", None)
-    print(firedb)
+
+    firedb = firebase.FirebaseApplication("https://add-backend-fst4enter5-default-rtdb.firebaseio.com/", None)
+    result = firedb.get('/contacts', None)
+    print(result)
+    
     if text == '' :
         response  = "CON What would you want to check \n"
         response += "1. My Phone Book \n"
         response += "2. Add Contact" 
     
     elif text == '1':
-        response = "END  \n" + my_contact_list
+        response = "END  \n" + result
 
     elif text == '2':
         response  = "CON Kindly type your number\n"
