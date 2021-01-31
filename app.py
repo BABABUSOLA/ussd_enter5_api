@@ -23,15 +23,15 @@ def ussd_callback():
 
     firedb = firebase.FirebaseApplication("https://add-backend-fst4enter5-default-rtdb.firebaseio.com/", None)
     result = firedb.get('/contacts', None)
-    print(result)
-    
+    print(result.values())
+
     if text == '' :
         response  = "CON What would you want to check \n"
         response += "1. My Phone Book \n"
         response += "2. Add Contact" 
     
     elif text == '1':
-        response = "END  \n" + result
+        response = "END  \n" + result[data]
 
     elif text == '2':
         response  = "CON Kindly type your number\n"
