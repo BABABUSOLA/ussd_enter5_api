@@ -49,8 +49,9 @@ def ussd_callback():
             email = x["email"]
             phoneNumber = x["phoneNumber"]
             print(name,email,phoneNumber)
-            
-            response += f"CON Name:{name} No:{phoneNumber} Email:{email}\n"
+
+            response = "CON "
+            response += f"Name:{name} No:{phoneNumber} Email:{email}\n"
             response  = "END."
 
     elif text == '2':
