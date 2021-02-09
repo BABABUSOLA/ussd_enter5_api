@@ -24,7 +24,19 @@ def ussd_callback():
     firedb = firebase.FirebaseApplication("https://add-backend-fst4enter5-default-rtdb.firebaseio.com/", None)
     result = firedb.get('/contacts', None)
     print(result)
+
+    split_up = [s.strip() for s in text.split("*")]
+    print(split_up)
     
+    if len(split_up) == 4 :
+        user_name = split_up[3]
+    elif len(split_up) >= 2:
+        user_name = "Name"
+        phone = split_up[1]
+    else:
+        user_name = "Name"
+        phone = "0000"
+
 
     if text == '' :
         response  = "CON What would you want to check \n"
@@ -44,22 +56,21 @@ def ussd_callback():
     elif text == '2':
         response  = "CON Kindly type your number\n"
 
-    elif text == f'2*{text[2:]}':
+    elif text == f'2*{phone}':
         response  = "CON Do you want to continue? \n"
         response += "1. Yes \n"
-        response += "2. No"
+        response  = "END 2. No"
 
-    elif text == f'2*{text[2:]}*1':
+    elif text == f'2*{phone}*1':
         # time to save the values we have gotten
         response = "CON Kindly type your name\n"
 
-    elif text == f'2*{text[2:]}*2':
+    elif text == f'2*{phone}*2':
         # time to save the values we have gotten
         response = "END Contact not saved \n"
 
-        
-    elif f'2*{text[2:]}*1*' in text:
-        split_up = [s.strip() for s in text.split("*")]
+    
+    elif text == f'2*{phone}*1*{name}':
         phone_no = split_up[1]
         name = split_up[3]
 
