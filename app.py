@@ -29,7 +29,7 @@ def ussd_callback():
     if text == '' :
         response  = "CON What would you want to check \n"
         response += "1. My Phone Book \n"
-        response += "2. Add Contact" 
+        response += "END 2. Add Contact" 
     
     elif text == '1':
         for x in result.values():
