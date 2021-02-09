@@ -23,6 +23,7 @@ def ussd_callback():
 
     firedb = firebase.FirebaseApplication("https://add-backend-fst4enter5-default-rtdb.firebaseio.com/", None)
     result = firedb.get('/contacts', None)
+    print(result)
     
 
     if text == '' :
@@ -36,26 +37,38 @@ def ussd_callback():
             email = x["email"]
             phoneNumber = x["phoneNumber"]
             print(name,email,phoneNumber)
-
-        response = f'END Name : {name} \n Mobile: {phoneNumber} \n Email: {email}'
+            response += f'END Name: {name} No: {phoneNumber} Email: {email}\n'
 
     elif text == '2':
         response  = "CON Kindly type your number\n"
 
     elif text == f'2*{text[2:]}':
-        response  = "CON Kindly type your name\n"
-        # response += "0. Back"
-        # response += "END This is the added phone number. \n" + text
-
-    elif f'2*{text[2:]}*' in text:
-        # time to save the values we have gotten
-        response = "CON Please confirm your details \n"
+        response  = "CON Do you want to continue? \n"
         response += "1. Yes"
         response += "2. No"
-        
-    elif f'2*{text[1:]}*1*' in text:
-        response = "END Let us save  \n"
 
+    elif text == f'2*{text[2:]}*1':
+        # time to save the values we have gotten
+        response = "CON Kindly type your name\n"
+
+    elif text == f'2*{text[2:]}*2':
+        # time to save the values we have gotten
+        response = "END Contact not saved \n"
+
+        
+    elif f'2*{text[2:]}*1*' in text:
+        split_up = [s.strip() for s in text.split("*")]
+        phone_no = split_up[1]
+        name = split_up[3]
+
+        üser = {
+                'fullName': name,
+                'phoneNumber': phone_no
+               }
+
+        new_user = firebase.post('/contacts',üser)  
+        print(new_user)
+        response = f"END {new_user} added successfully  \n"
     else:
         response = "END Invalid Option"
     return response
