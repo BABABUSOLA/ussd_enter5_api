@@ -72,7 +72,7 @@ def ussd_callback():
         response += "1. Yes \n"
         response += "2. No"
 
-    elif text == f"2*{phone}*{user_name}*{email}*1":
+    elif text == f"2*{user_name}*{phone}*{email}*1":
         #save with email
         üser = {
                 'email': email,
