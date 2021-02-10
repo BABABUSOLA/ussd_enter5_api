@@ -36,7 +36,7 @@ def ussd_callback():
     else:
         user_name = "Name"
         phone = "0000"
-
+    number = 0
 
     if text == '' :
         response  = "CON What would you want to check \n"
@@ -49,29 +49,28 @@ def ussd_callback():
             email = x["email"]
             phoneNumber = x["phoneNumber"]
             print(name,email,phoneNumber)
-
-            response = "CON "
+            number += 1
+            response = f"CON {number}"
             response += f"Name:{name} No:{phoneNumber} Email:{email}\n"
-            response  = "END."
 
     elif text == '2':
         response  = "CON Kindly type your number\n"
 
-    elif text == f'2*{phone}':
-        response  = "CON Do you want to continue? \n"
+    elif text == f"2*{phone}":
+        response  = f"CON Do you want to continue to save {phone}? \n"
         response += "1. Yes \n"
-        response  = "2. No"
+        response += "2. No"
 
-    elif text == f'2*{phone}*1':
+    elif text == f"2*{phone}*1":
         # time to save the values we have gotten
         response = "CON Kindly type your name\n"
 
-    elif text == f'2*{phone}*2':
+    elif text == f"2*{phone}*2":
         # time to save the values we have gotten
         response = "END Contact not saved \n"
 
     
-    elif text == f'2*{phone}*1*{name}':
+    elif text == f"2*{phone}*1*{name}":
         phone_no = split_up[1]
         name = split_up[3]
 
@@ -80,7 +79,7 @@ def ussd_callback():
                 'phoneNumber': phone_no
                }
 
-        new_user = firebase.post('/contacts',üser)  
+        new_user = firedb.post('/contacts',üser)  
         print(new_user)
         response = f"END {new_user} added successfully  \n"
     else:
