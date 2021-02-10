@@ -18,10 +18,8 @@ def ussd_callback():
     service_code = request.values.get("serviceCode", None)
     phone_number = request.values.get("phoneNumber", None)
     text = request.values.get("text", "default")
-    print(text)
     contact_list = requests.get("https://us-central1-add-backend-fst4enter5.cloudfunctions.net/contact/").json()
     my_contact_list = str(contact_list)
-
     firedb = firebase.FirebaseApplication("https://add-backend-fst4enter5-default-rtdb.firebaseio.com/", None)
     result = firedb.get('/contacts', None)
     split_up = [s.strip() for s in text.split("*")]
@@ -70,7 +68,7 @@ def ussd_callback():
         response = f"CON Enter the email to save {user_name}\n"
 
     elif text == f"2*{user_name}*{phone}*{email}":
-        response  = f"CON Do you want to continue to save {name}\n with phone number:{phone} and email:{email}? \n"
+        response  = f"CON Do you want to continue to save {user_name}\n with phone number:{phone} and email:{email}? \n"
         response += "1. Yes \n"
         response += "2. No"
 
