@@ -52,7 +52,7 @@ def ussd_callback():
             print(name,email,phoneNumber)
             number += 1
             response = f"CON {number} "
-            response += f"Name:{name} No:{phoneNumber} Email:{email}\n"
+            response += f"{name},{phoneNumber},{email}\n"
             response = "."
 
     elif text == '2':
