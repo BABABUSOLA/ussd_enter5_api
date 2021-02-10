@@ -30,7 +30,7 @@ def ussd_callback():
     user_name = ""
     phone = ""
     email = ""
-    if len(split_up) >= 4 :
+    if len(split_up) = 4 :
         user_name = split_up[3]
         phone = split_up[1] 
     elif len(split_up) >= 7:
@@ -39,7 +39,8 @@ def ussd_callback():
         phone = split_up[1]
     elif len(split_up) >= 2:
         phone = split_up[1]
-        
+
+    print(text)   
 
     if text == '' :
         response  = "CON What would you want to check \n"
@@ -53,8 +54,8 @@ def ussd_callback():
             phoneNumber = x["phoneNumber"]
             number += 1
             print(number,name,email,phoneNumber)
-            
-            response += f"END {number}{name},\n{phoneNumber},{email}\n"
+            response = "END "
+            response += f" {number}: {name},\n{phoneNumber},{email}\n"
 
     elif text == '2':
         response  = "CON Kindly type your number\n"
@@ -100,9 +101,9 @@ def ussd_callback():
         new_user = firedb.post('/contacts',üser)  
         print(new_user)
         response = f"END {new_user} added successfully  \n"
-        
+
     elif text == f"2*{phone}*1*{user_name}*1*1*{email}":
-        #save without email
+        #save with email
         üser = {
                 'email': email,
                 'fullName': user_name,
