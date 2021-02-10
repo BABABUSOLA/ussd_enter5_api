@@ -23,25 +23,25 @@ def ussd_callback():
 
     firedb = firebase.FirebaseApplication("https://add-backend-fst4enter5-default-rtdb.firebaseio.com/", None)
     result = firedb.get('/contacts', None)
-    print(result)
-
     split_up = [s.strip() for s in text.split("*")]
     print(split_up)
     
     if len(split_up) == 4 :
         user_name = split_up[3]
+        phone = split_up[1]
+        print("This is name" user_name)
     elif len(split_up) >= 2:
         user_name = "Name"
         phone = split_up[1]
+        print("This is phone number to be saved" phone)
     else:
         user_name = "Name"
         phone = "0000"
-    number = 0
 
     if text == '' :
         response  = "CON What would you want to check \n"
         response += "1. My Phone Book \n"
-        response  = "2. Add Contact \n" 
+        response += "2. Add Contact \n" 
     
     elif text == '1':
         for x in result.values():
