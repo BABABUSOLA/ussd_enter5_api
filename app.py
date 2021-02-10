@@ -25,6 +25,7 @@ def ussd_callback():
     result = firedb.get('/contacts', None)
     split_up = [s.strip() for s in text.split("*")]
     print(split_up)
+    number = 0
     
     if len(split_up) == 4 :
         user_name = split_up[3]
