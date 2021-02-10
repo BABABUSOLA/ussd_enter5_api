@@ -54,8 +54,7 @@ def ussd_callback():
             number += 1
             print(number,name,email,phoneNumber)
             
-            response = f"CON {number} "
-            response += f"{name},{phoneNumber},{email}\n"
+            response += f"END {number}{name},\n{phoneNumber},{email}\n"
 
     elif text == '2':
         response  = "CON Kindly type your number\n"
@@ -78,12 +77,12 @@ def ussd_callback():
         # time to save the values we have gotten
         response = f"CON Kindly type the name to save {phone}\n"
 
-    elif (text == f"2*{phone}*2") or (text == f"2*{phone}*1*{user_name}*2"):
+    elif (text == f"2*{phone}*2") or (text == f"2*{phone}*1*{user_name}*2") or (text == f"2*{phone}*1*{user_name}*1*2"):
         # time to save the values we have gotten
         response = "END Contact not saved \n"
 
     elif text == f"2*{phone}*1*{user_name}*1":
-        response  = f"CON Do you want to save email for {user_name}? \n"
+        response  = f"CON Do you want to save email for {user_name}? \n Contact must have email address \n"
         response += "1. Yes \n"
         response += "2. No"
 
@@ -91,7 +90,7 @@ def ussd_callback():
         # time to save the values we have gotten
         response = f"CON Enter the email for {user_name}\n"
     
-    elif (text == f"2*{phone}*1*{user_name}*1") or (text == f"2*{phone}*1*{user_name}*1*2"):
+    elif (text == f"2*{phone}*1*{user_name}*1") :
         #save without email
         üser = {
                 'fullName': user_name,
@@ -101,7 +100,7 @@ def ussd_callback():
         new_user = firedb.post('/contacts',üser)  
         print(new_user)
         response = f"END {new_user} added successfully  \n"
-
+        
     elif text == f"2*{phone}*1*{user_name}*1*1*{email}":
         #save without email
         üser = {
