@@ -84,11 +84,11 @@ def ussd_callback():
 
         new_user = firedb.post('/contacts',üser)  
         print(new_user)
-        response = f"END {new_user} added successfully  \n"
+        response = f"END {user_name} added successfully to contact list  \n"
 
     elif text == f"2*{user_name}*{phone}*{email}*2":
     # time to save the values we have gotten
-    response = "END Contact not saved \n"
+        response = "END Contact not saved \n"
     else:
         response = "END Invalid Option"
     return response
