@@ -34,6 +34,7 @@ def ussd_callback():
         print(user_name)
     elif len(split_up) >= 7:
         email = split_up[6]
+        user_name = split_up[3]
     elif len(split_up) >= 2:
         phone = split_up[1]
         print(phone)
@@ -49,11 +50,11 @@ def ussd_callback():
             name = x["fullName"]
             email = x["email"]
             phoneNumber = x["phoneNumber"]
-            print(name,email,phoneNumber)
             number += 1
+            print(number,name,email,phoneNumber)
+            
             response = f"CON {number} "
             response += f"{name},{phoneNumber},{email}\n"
-            response = "."
 
     elif text == '2':
         response  = "CON Kindly type your number\n"
