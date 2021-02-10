@@ -27,17 +27,19 @@ def ussd_callback():
     print(split_up)
     number = 0
     
-    if len(split_up) == 4 :
+    if len(split_up) >= 4 :
         user_name = split_up[3]
         phone = split_up[1]
         print(user_name)
+    elif len(split_up) >= 7:
+        email = split_up[6]
     elif len(split_up) >= 2:
-        user_name = "Name"
         phone = split_up[1]
         print(phone)
     else:
         user_name = "Name"
         phone = "0000"
+        email = "email"
 
     if text == '' :
         response  = "CON What would you want to check \n"
@@ -51,8 +53,9 @@ def ussd_callback():
             phoneNumber = x["phoneNumber"]
             print(name,email,phoneNumber)
             number += 1
-            response = f"CON {number}"
+            response = f"CON {number} "
             response += f"Name:{name} No:{phoneNumber} Email:{email}\n"
+            response += "."
 
     elif text == '2':
         response  = "CON Kindly type your number\n"
@@ -64,15 +67,45 @@ def ussd_callback():
 
     elif text == f"2*{phone}*1":
         # time to save the values we have gotten
-        response = "CON Kindly type your name\n"
+        response = f"CON Kindly type the name to save {phone}\n"
 
-    elif text == f"2*{phone}*2":
+    elif text == f"2*{phone}*1*{user_name}":
+        response  = f"CON Do you want to continue to save {phone} with name:{user_name}? \n"
+        response += "1. Yes \n"
+        response += "2. No"
+
+    elif text == f"2*{phone}*1":
+        # time to save the values we have gotten
+        response = f"CON Kindly type the name to save {phone}\n"
+
+    elif (text == f"2*{phone}*2") or (text == f"2*{phone}*1*{user_name}*2"):
         # time to save the values we have gotten
         response = "END Contact not saved \n"
 
+    elif text == f"2*{phone}*1*{user_name}*1":
+        response  = f"CON Do you want to save email for {user_name}? \n"
+        response += "1. Yes \n"
+        response += "2. No"
+
+    elif text == f"2*{phone}*1*{user_name}*1*1":
+        # time to save the values we have gotten
+        response = f"CON Enter the email for {user_name}\n"
     
-    elif text == f"2*{phone}*1*{user_name}":
+    elif (text == f"2*{phone}*1*{user_name}*1") or (text == f"2*{phone}*1*{user_name}*1*2"):
+        #save without email
         üser = {
+                'fullName': user_name,
+                'phoneNumber': phone
+               }
+
+        new_user = firedb.post('/contacts',üser)  
+        print(new_user)
+        response = f"END {new_user} added successfully  \n"
+
+    elif text == f"2*{phone}*1*{user_name}*1*1*{email}":
+        #save without email
+        üser = {
+                'email': email,
                 'fullName': user_name,
                 'phoneNumber': phone
                }
