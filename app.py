@@ -18,6 +18,7 @@ def ussd_callback():
     service_code = request.values.get("serviceCode", None)
     phone_number = request.values.get("phoneNumber", None)
     text = request.values.get("text", "default")
+    print(text)
     contact_list = requests.get("https://us-central1-add-backend-fst4enter5.cloudfunctions.net/contact/").json()
     my_contact_list = str(contact_list)
 
@@ -31,13 +32,13 @@ def ussd_callback():
     email = ""
     if len(split_up) >= 4 :
         user_name = split_up[3]
-        print(user_name)
+        phone = split_up[1] 
     elif len(split_up) >= 7:
         email = split_up[6]
         user_name = split_up[3]
+        phone = split_up[1]
     elif len(split_up) >= 2:
         phone = split_up[1]
-        print(phone)
         
 
     if text == '' :
