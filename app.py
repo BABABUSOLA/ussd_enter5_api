@@ -48,13 +48,14 @@ def ussd_callback():
         response += "2. Add Contact \n" 
     
     elif text == '1':
+        response = "END "
         for x in result.values():
             name = x["fullName"]
             email = x["email"]
             phoneNumber = x["phoneNumber"]
             number += 1
             print(number,name,email,phoneNumber)
-            response = "END "
+            
             response += f" {number}: {name},\n{phoneNumber},{email}\n"
 
     elif text == '2':
