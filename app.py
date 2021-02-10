@@ -70,13 +70,10 @@ def ussd_callback():
         response = "END Contact not saved \n"
 
     
-    elif text == f"2*{phone}*1*{name}":
-        phone_no = split_up[1]
-        name = split_up[3]
-
+    elif text == f"2*{phone}*1*{user_name}":
         üser = {
-                'fullName': name,
-                'phoneNumber': phone_no
+                'fullName': user_name,
+                'phoneNumber': phone
                }
 
         new_user = firedb.post('/contacts',üser)  
