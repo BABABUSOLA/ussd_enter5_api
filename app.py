@@ -29,11 +29,11 @@ def ussd_callback():
     if len(split_up) == 4 :
         user_name = split_up[3]
         phone = split_up[1]
-        print("This is name" user_name)
+        print(user_name)
     elif len(split_up) >= 2:
         user_name = "Name"
         phone = split_up[1]
-        print("This is phone number to be saved" phone)
+        print(phone)
     else:
         user_name = "Name"
         phone = "0000"
