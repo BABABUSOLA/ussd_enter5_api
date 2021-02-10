@@ -30,15 +30,15 @@ def ussd_callback():
     user_name = "name"
     phone = "000"
     email = "email"
-    if len(split_up) >= 7 :
-        email = split_up[6]
-        user_name = split_up[3]
-        phone = split_up[1] 
-    elif len(split_up) >= 4:
-        user_name = split_up[3]
-        phone = split_up[1]
+    if len(split_up) >= 4 :
+        email = split_up[3]
+        phone = split_up[2]
+        user_name = split_up[1] 
+    elif len(split_up) >= 3:
+        phone = split_up[2]
+        user_name = split_up[1]
     elif len(split_up) >= 2:
-        phone = split_up[1]
+        user_name = split_up[1]
 
     print(text)   
 
@@ -56,54 +56,25 @@ def ussd_callback():
             number += 1
             print(number,name,email,phoneNumber)
             
-            response += f" {number}: {name},\n{phoneNumber},{email}\n"
+            response += f" {number}: {name},\n{phoneNumber},\n {email}\n"
 
     elif text == '2':
-        response  = "CON Kindly type your number\n"
+        response  = "CON Kindly type the name\n"
 
-    elif text == f"2*{phone}":
-        response  = f"CON Do you want to continue to save {phone}? \n"
+    elif text == f"2*{user_name}":
+        # time to save the values we have gotten
+        response = f"CON Kindly type the number to save {user_name}\n"
+
+    elif text == f"2*{user_name}*{phone}":
+        # time to save the values we have gotten
+        response = f"CON Enter the email to save {user_name}\n"
+
+    elif text == f"2*{user_name}*{phone}*{email}":
+        response  = f"CON Do you want to continue to save {name}\n with phone number:{phone} and email:{email}? \n"
         response += "1. Yes \n"
         response += "2. No"
 
-    elif text == f"2*{phone}*1":
-        # time to save the values we have gotten
-        response = f"CON Kindly type the name to save {phone}\n"
-
-    elif text == f"2*{phone}*1*{user_name}":
-        response  = f"CON Do you want to continue to save {phone} with name:{user_name}? \n"
-        response += "1. Yes \n"
-        response += "2. No"
-
-    elif text == f"2*{phone}*1":
-        # time to save the values we have gotten
-        response = f"CON Kindly type the name to save {phone}\n"
-
-    elif (text == f"2*{phone}*2") or (text == f"2*{phone}*1*{user_name}*2") or (text == f"2*{phone}*1*{user_name}*1*2"):
-        # time to save the values we have gotten
-        response = "END Contact not saved \n"
-
-    elif text == f"2*{phone}*1*{user_name}*1":
-        response  = f"CON Do you want to save email for {user_name}? \n Contact must have email address \n"
-        response += "1. Yes \n"
-        response += "2. No"
-
-    elif text == f"2*{phone}*1*{user_name}*1*1":
-        # time to save the values we have gotten
-        response = f"CON Enter the email for {user_name}\n"
-    
-    elif (text == f"2*{phone}*1*{user_name}*1") :
-        #save without email
-        üser = {
-                'fullName': user_name,
-                'phoneNumber': phone
-               }
-
-        new_user = firedb.post('/contacts',üser)  
-        print(new_user)
-        response = f"END {new_user} added successfully  \n"
-
-    elif text == f"2*{phone}*1*{user_name}*1*1*{email}":
+    elif text == f"2*{phone}*{user_name}*{email}*1":
         #save with email
         üser = {
                 'email': email,
@@ -114,6 +85,10 @@ def ussd_callback():
         new_user = firedb.post('/contacts',üser)  
         print(new_user)
         response = f"END {new_user} added successfully  \n"
+
+    elif text == f"2*{user_name}*{phone}*{email}*2":
+    # time to save the values we have gotten
+    response = "END Contact not saved \n"
     else:
         response = "END Invalid Option"
     return response
