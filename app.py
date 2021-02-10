@@ -53,7 +53,7 @@ def ussd_callback():
             number += 1
             response = f"CON {number} "
             response += f"Name:{name} No:{phoneNumber} Email:{email}\n"
-            response += "."
+            response = "."
 
     elif text == '2':
         response  = "CON Kindly type your number\n"
