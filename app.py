@@ -26,20 +26,18 @@ def ussd_callback():
     split_up = [s.strip() for s in text.split("*")]
     print(split_up)
     number = 0
-    
+    user_name = ""
+    phone = ""
+    email = ""
     if len(split_up) >= 4 :
         user_name = split_up[3]
-        phone = split_up[1]
         print(user_name)
     elif len(split_up) >= 7:
         email = split_up[6]
     elif len(split_up) >= 2:
         phone = split_up[1]
         print(phone)
-    else:
-        user_name = "Name"
-        phone = "0000"
-        email = "email"
+        
 
     if text == '' :
         response  = "CON What would you want to check \n"
